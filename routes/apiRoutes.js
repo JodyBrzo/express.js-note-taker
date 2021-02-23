@@ -1,6 +1,6 @@
 // LOAD DATA
 // We are linking our routes to a series of "data" sources.
-const store = require('../db/store.js');
+const store = require('../Develop/db/store.js');
 
 // ROUTING
 
@@ -40,5 +40,5 @@ module.exports = (app) => {
     })
     .catch((err) => res.status(500).json(err));
   });
-  
+
 };
