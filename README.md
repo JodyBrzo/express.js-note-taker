@@ -6,12 +6,14 @@ An Express.js app that allows you to save, edit and delete notes.  This applicat
 
 ![SAMPLE](Develop/public/assets/images/mockup.gif)
 
+
 # Table of Contents 
 
 * [Technology used](#Technology%20used)
 * [Installation](#Installation)
 * [Usage](#Usage)
 * [License](#License)
+
 
 # Technology used
 
@@ -31,7 +33,7 @@ An Express.js app that allows you to save, edit and delete notes.  This applicat
 From the command line change directory to where you cloned this repo to then type 'npm install express fs util uuid', then to run it type 'node server.js'
 
 # Usage
-Check out my [video tutorial] (Develop/public/assets/images/mockup.gifw) for a complete walkthrough of this app 
+Check out my ![video tutorial](Develop/public/assets/images/mockup.gif) for a complete walkthrough of this app 
 
 You can view the live deployed app on heroku here [Deployed Note Taker App ](https://radiant-sierra-40853.herokuapp.com/)
 
