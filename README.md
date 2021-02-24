@@ -1,7 +1,7 @@
 ![license](https://img.shields.io/static/v1?label=license&message=MIT&color=brightgreen)
 
 # Express.js Note Taker
-An Express.js app that allows you to save, edit and delete notes.  This application is deployed live to Heroku.
+An Express.js app that allows you to save, edit and delete notes.  This application is deployed live to Heroku. [Deployed Note Taker App ](https://radiant-sierra-40853.herokuapp.com/)
 
 
 ![SAMPLE](Develop/public/assets/images/mockup.gif)
@@ -33,7 +33,7 @@ An Express.js app that allows you to save, edit and delete notes.  This applicat
 From the command line change directory to where you cloned this repo to then type 'npm install express fs util uuid', then to run it type 'node server.js'
 
 # Usage
-Check out my  for a complete walkthrough of this app ![video tutorial](Develop/public/assets/images/NoteTaker.gif)
+Check out my video tutorial for a complete walkthrough of this app ![video tutorial](Develop/public/assets/images/NoteTaker.gif)
 
 You can view the live deployed app on heroku here [Deployed Note Taker App ](https://radiant-sierra-40853.herokuapp.com/)
 
