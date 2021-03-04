@@ -18,4 +18,5 @@ const path = require('path');
     res.sendFile(path.join(__dirname, '../Develop/public/index.html'));
   });
 
+  //export the router object
   module.exports = router;

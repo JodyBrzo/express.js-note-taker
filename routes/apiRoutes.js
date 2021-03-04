@@ -1,38 +1,98 @@
 // LOAD DATA
 // We are linking our routes to a series of "data" sources.
-const store = require('../Develop/db/store.js');
 const router = require('express').Router();
+const uid = require('uuid');
+const util = require('util');
+const fs = require('fs');
+
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
+//File i/o functions
+const readFile = () =>{return readFileAsync('./Develop/db/db.json', 'utf8')};
+const writeFile = data => {return writeFileAsync('./Develop/db/db.json', JSON.stringify(data))};
 
 // ROUTING
 
-// module.exports = (app) => {
   // API GET Requests
   // Below code handles when users "visit" a page.
   // In each of the below cases when a user visits a link
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
+  //return all the notes
   router.get('/notes', (req, res) => {
-    
-    store.getNotes()
-    .then((notes) => {
+
+    getNotes().then((notes) => {
       return res.json(notes);
     })
     .catch((err) => res.status(500).json(err));
   });
 
+  //Adding a new note
   router.post('/notes', (req, res) => {
-    
-    store.addNote(req.body)
+    addNote(req.body)
     .then((note) => res.json(note))
     .catch((err) => res.status(500).json(err))
   });
 
+  //Remove a note
   router.delete('/notes/:id', (req, res) => {
-    
-    store.removeNote(req.params.id)
-    .then(() => res.json({ ok: true }))
+    deleteNote(req.params.id)
+    .then(() => res.json({ status: true }))
     .catch((err) => res.status(500).json(err))
   });
 
+  //Return a list of notes
+  const getNotes = () => {
+      return new Promise(function(resolve, reject)
+      {
+        readFile()
+        .then((notes) => {
+          let notesArr = [];
+
+          try {
+            notesArr = [].concat(JSON.parse(notes));
+          } catch (err) {
+            notesArr = [];
+          }
+
+            resolve(notesArr);
+          });      
+    });
+  }
+
+  //Add a new note: Tag the new note with a GUID
+  const addNote = (note) => {
+    return new Promise(function(resolve, reject)
+    {
+      if (!note.title || !note.text) {
+        throw new Error('You must enter in a Title and Text.');
+      }
+
+      const newNote = {id: uid.v4(), title: note.title, text: note.text};
+
+      getNotes()
+      .then((notes) => [...notes, newNote])
+      .then((updatedNotes) => { 
+        
+        writeFile(updatedNotes);
+        resolve(newNote);
+      });
+    });
+  }
+
+  //Delete a note: Using the GUID of the note to be deleted 
+  function deleteNote(id) {
+    return new Promise(function(resolve, reject)
+    {
+      getNotes()
+      .then((notes) => notes.filter((note) => note.id !== id))
+      .then ((filteredNotes) => {
+        writeFile(filteredNotes);
+        resolve();
+      });
+    });
+  }
+
+//Export the router object  
 module.exports = router;
